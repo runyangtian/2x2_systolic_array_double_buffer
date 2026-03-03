@@ -1,5 +1,5 @@
 $date
-	Mon Mar  2 01:43:06 2026
+	Mon Mar  2 18:06:54 2026
 $end
 $version
 	Icarus Verilog
@@ -112,10 +112,10 @@ $var wire 1 E load_en2 $end
 $var wire 1 F load_sel $end
 $var wire 1 G pe_en $end
 $var wire 1 0 rst_n $end
-$var wire 9 z c11 [8:0] $end
-$var wire 9 { c10 [8:0] $end
-$var wire 9 | c01 [8:0] $end
-$var wire 9 } c00 [8:0] $end
+$var wire 9 z c22 [8:0] $end
+$var wire 9 { c21 [8:0] $end
+$var wire 9 | c12 [8:0] $end
+$var wire 9 } c11 [8:0] $end
 $var wire 4 ~ b11_out_unused [3:0] $end
 $var wire 4 !" b10_out_unused [3:0] $end
 $var wire 4 "" b01_out_unused [3:0] $end
@@ -666,8 +666,8 @@ b0 u
 b0 <"
 b100000 O"
 b0 9"
-b10011 %
-b10011 S
+b10011 #
+b10011 U
 b11 \
 b10110 :
 b10110 H
@@ -727,8 +727,8 @@ b110010 H
 b110010 z
 b110010 N"
 b100 L"
-b10110 $
-b10110 T
+b10110 "
+b10110 V
 b101011 #
 b101011 U
 b100 \
@@ -849,8 +849,8 @@ b11 :
 b11 H
 b11 z
 b11 N"
-b10 %
-b10 S
+b10 #
+b10 U
 b11 \
 1.
 #160000
@@ -859,8 +859,8 @@ b11 \
 1G
 1[
 b0 O"
-b11 $
-b11 T
+b11 "
+b11 V
 b100 #
 b100 U
 b100 \
@@ -922,24 +922,4 @@ b0 \
 #220000
 0.
 #225000
-1.
-#230000
-0.
-#235000
-1.
-#240000
-0.
-#245000
-1.
-#250000
-0.
-#255000
-1.
-#260000
-0.
-#265000
-1.
-#270000
-0.
-#275000
 1.

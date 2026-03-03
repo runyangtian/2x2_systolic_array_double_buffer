@@ -132,3 +132,4 @@ module array_2x2 #(
     );
 
 endmodule
+
