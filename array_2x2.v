@@ -25,10 +25,10 @@ module array_2x2 #(
     input                   clear,
     input                   pe_en,
 
-    output     [Psum_W-1:0] c00,
-    output     [Psum_W-1:0] c01,
-    output     [Psum_W-1:0] c10,
-    output     [Psum_W-1:0] c11
+    output     [Psum_W-1:0] c11,
+    output     [Psum_W-1:0] c12,
+    output     [Psum_W-1:0] c21,
+    output     [Psum_W-1:0] c22
 );
 
     wire [Data_W-1:0] a00_out;
@@ -52,7 +52,7 @@ module array_2x2 #(
 
         .a_out      (a00_out),
         .b_out      (b00_out_unused),
-        .cout       (c00),
+        .cout       (c11),
 
         .load_en    (load_en1),
         .load_sel   (load_sel),
@@ -75,7 +75,7 @@ module array_2x2 #(
 
         .a_out      (),
         .b_out      (b01_out_unused),
-        .cout       (c01),
+        .cout       (c12),
 
         .load_en    (load_en1),
         .load_sel   (load_sel),
@@ -94,11 +94,11 @@ module array_2x2 #(
 
         .a_in       (a2_in),
         .b_in       (b21),
-        .cin        (c00),
+        .cin        (c11),
 
         .a_out      (a10_out),
         .b_out      (b10_out_unused),
-        .cout       (c10),
+        .cout       (c21),
 
         .load_en    (load_en2),
         .load_sel   (load_sel),
@@ -117,11 +117,11 @@ module array_2x2 #(
 
         .a_in       (a10_out),
         .b_in       (b22),
-        .cin        (c01),
+        .cin        (c12),
 
         .a_out      (),
         .b_out      (b11_out_unused),
-        .cout       (c11),
+        .cout       (c22),
 
         .load_en    (load_en2),
         .load_sel   (load_sel),

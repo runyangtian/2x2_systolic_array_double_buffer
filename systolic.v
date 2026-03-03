@@ -89,10 +89,10 @@ module systolic (
         .clear   (clear),
         .pe_en   (pe_en),
 
-        .c00          (c11_int),
-        .c01          (c12_int),
-        .c10          (c21_int),
-        .c11          (c22_int)
+        .c11          (c11_int),
+        .c12          (c12_int),
+        .c21          (c21_int),
+        .c22          (c22_int)
     );
 
     // Controller FSM
@@ -259,11 +259,11 @@ module systolic (
                     end
 
                     if (phase == 3'd2) begin
-                        c11 <= arr_out21;
+                        c21 <= arr_out21;
                     end
                     if (phase == 3'd3) begin
                         c21 <= arr_out21;
-                        c12 <= arr_out22;
+                        c22 <= arr_out22;
                     end
                     if (phase == 3'd4) begin
                         c22       <= arr_out22;
