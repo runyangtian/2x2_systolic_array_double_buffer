@@ -8,36 +8,30 @@ module array_2x2 #(
     input                   clk,
     input                   rst_n,
 
-    input      [Data_W-1:0] a1_in,
-    input      [Data_W-1:0] a2_in,
+    input      [Data_W-1:0] a11_in,
+    input      [Data_W-1:0] a21_in,
 
-    input      [Data_W-1:0] b11,
-    input      [Data_W-1:0] b12,
-    input      [Data_W-1:0] b21,
-    input      [Data_W-1:0] b22,
+    input      [Data_W-1:0] b11_in,
+    input      [Data_W-1:0] b12_in,
 
-    input                   load_en1,
-    input                   load_en2,
-
-    input                   load_sel,
-    input                   act_sel,
+    input       [3:0]       load_en,
+    input       [3:0]       load_sel,
+    input       [3:0]       act_sel,
 
     input                   clear,
     input                   pe_en,
 
-    output     [Psum_W-1:0] c11,
-    output     [Psum_W-1:0] c12,
-    output     [Psum_W-1:0] c21,
-    output     [Psum_W-1:0] c22
+    output     [Psum_W-1:0] c21_out,
+    output     [Psum_W-1:0] c22_out
 );
 
-    wire [Data_W-1:0] a00_out;
-    wire [Data_W-1:0] a10_out;
+    wire [Data_W-1:0] a11_out;
+    wire [Data_W-1:0] a21_out;
+    wire [Data_W-1:0] b11_out;
+    wire [Data_W-1:0] b12_out;
+    wire [Psum_W-1:0] c11_out;
+    wire [Psum_W-1:0] c12_out;
 
-    wire [Data_W-1:0] b00_out_unused;
-    wire [Data_W-1:0] b01_out_unused;
-    wire [Data_W-1:0] b10_out_unused;
-    wire [Data_W-1:0] b11_out_unused;
 
     pe #(
         .Data_W(Data_W),
@@ -46,17 +40,17 @@ module array_2x2 #(
         .clk        (clk),
         .rst_n      (rst_n),
 
-        .a_in       (a1_in),
-        .b_in       (b11),
+        .a_in       (a11_in),
+        .b_in       (b11_in),
         .cin        ({Psum_W{1'b0}}),
 
-        .a_out      (a00_out),
-        .b_out      (b00_out_unused),
-        .cout       (c11),
+        .a_out      (a11_out),
+        .b_out      (b11_out),
+        .cout       (c11_out),
 
-        .load_en    (load_en1),
-        .load_sel   (load_sel),
-        .act_sel    (act_sel),
+        .load_en    (load_en[0]),
+        .load_sel   (load_sel[0]),
+        .act_sel    (act_sel[0]),
 
         .clear (clear),
         .pe_en (pe_en)
@@ -69,17 +63,17 @@ module array_2x2 #(
         .clk        (clk),
         .rst_n      (rst_n),
 
-        .a_in       (a00_out),
-        .b_in       (b12),
+        .a_in       (a11_out),
+        .b_in       (b12_in),
         .cin        ({Psum_W{1'b0}}),
 
         .a_out      (),
-        .b_out      (b01_out_unused),
-        .cout       (c12),
+        .b_out      (b12_out),
+        .cout       (c12_out),
 
-        .load_en    (load_en1),
-        .load_sel   (load_sel),
-        .act_sel    (act_sel),
+        .load_en    (load_en[1]),
+        .load_sel   (load_sel[1]),
+        .act_sel    (act_sel[1]),
 
         .clear (clear),
         .pe_en (pe_en)
@@ -92,17 +86,17 @@ module array_2x2 #(
         .clk        (clk),
         .rst_n      (rst_n),
 
-        .a_in       (a2_in),
-        .b_in       (b21),
-        .cin        (c11),
+        .a_in       (a21_in),
+        .b_in       (b11_out),
+        .cin        (c11_out),
 
-        .a_out      (a10_out),
-        .b_out      (b10_out_unused),
-        .cout       (c21),
+        .a_out      (a21_out),
+        .b_out      (),
+        .cout       (c21_out),
 
-        .load_en    (load_en2),
-        .load_sel   (load_sel),
-        .act_sel    (act_sel),
+        .load_en    (load_en[2]),
+        .load_sel   (load_sel[2]),
+        .act_sel    (act_sel[2]),
 
         .clear (clear),
         .pe_en (pe_en)
@@ -115,21 +109,22 @@ module array_2x2 #(
         .clk        (clk),
         .rst_n      (rst_n),
 
-        .a_in       (a10_out),
-        .b_in       (b22),
-        .cin        (c12),
+        .a_in       (a21_out),
+        .b_in       (b12_out),
+        .cin        (c12_out),
 
         .a_out      (),
-        .b_out      (b11_out_unused),
-        .cout       (c22),
+        .b_out      (),
+        .cout       (c22_out),
 
-        .load_en    (load_en2),
-        .load_sel   (load_sel),
-        .act_sel    (act_sel),
+        .load_en    (load_en[3]),
+        .load_sel   (load_sel[3]),
+        .act_sel    (act_sel[3]),
 
         .clear (clear),
         .pe_en (pe_en)
     );
 
 endmodule
+
 
