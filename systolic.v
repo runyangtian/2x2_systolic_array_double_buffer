@@ -191,6 +191,9 @@ module systolic #(
                 arr_pe_en   = 1'b1;
                 arr_a_top   = cur_a21;
                 arr_a_bot   = cur_a12;
+
+                // PE22 still belongs to previous-right-column timing
+                // PE21 / PE12 / PE11 belong to current running op
                 arr_act_sel = {inactive_bank, active_bank, active_bank, active_bank};
 
                 if (do_nxt_p1) begin
@@ -271,18 +274,23 @@ module systolic #(
 
             // capture outputs at their real timing points
             if (state == ST_RUN1) begin
-                c11 <= arr_c_row0;
+                c21 <= arr_c_row0;
             end
 
             if (state == ST_RUN2) begin
-                c12 <= arr_c_row1;
+                c22 <= arr_c_row1;
                 c21 <= arr_c_row0;
             end
 
             if (pending_c22 || (state == ST_DRAIN)) begin
+                c21 <= arr_c_row0;
                 c22 <= arr_c_row1;
                 out_valid <= 1'b1;
                 pending_c22 <= 1'b0;
+            end
+
+            if (state == ST_IDLE && out_valid) begin
+                c22 <= arr_c_row1;
             end
 
             // accept input ops
@@ -363,6 +371,8 @@ module systolic #(
                         state <= ST_RUN1;
                     end
                     else begin
+                        // whether there is a queued next op or not,
+                        // final PE22 needs one drain cycle first
                         drain_has_next <= nxt_valid;
                         state <= ST_DRAIN;
                     end
